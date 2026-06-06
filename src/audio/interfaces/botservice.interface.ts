@@ -1,4 +1,4 @@
-export interface JobForm{
+export interface JobForm {
   people: string;
   work: string;
   duration: string;

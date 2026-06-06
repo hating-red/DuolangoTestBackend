@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package speechkit.stt.v3;
+
+import "yandex/cloud/ai/stt/v3/stt.proto";
+
+service Recognizer {
+  rpc RecognizeStreaming(stream StreamingRequest) returns (stream StreamingResponse);
+}

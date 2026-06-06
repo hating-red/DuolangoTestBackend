@@ -1,8 +1,11 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { AudioService } from './audio/audio.service';
+import type { Server } from 'node:http';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const audioService = app.get(AudioService);
 
   app.enableCors({
     origin: [process.env.MAIN_BACKEND_URL],
@@ -11,8 +14,13 @@ async function bootstrap() {
     credentials: true,
   });
 
-  await app.listen(process.env.PORT ?? 2006);
-  console.log(`🚀 Сервер слушает ${process.env.PORT ?? 2006}`);
+  audioService.bindWebSocketServer(app.getHttpServer() as Server);
+
+  const port = process.env.PORT ?? 2006;
+  const host = process.env.HOST ?? '127.0.0.1';
+
+  await app.listen(port, host);
+  console.log(`🚀 Сервер слушает ${host}:${port}`);
 }
 
-bootstrap();
+void bootstrap();

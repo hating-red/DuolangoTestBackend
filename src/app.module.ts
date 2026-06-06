@@ -6,8 +6,8 @@ import { AudioModule } from './audio/audio.module';
   imports: [
     AudioModule,
     ConfigModule.forRoot({
-      isGlobal:true,
-    })
+      isGlobal: true,
+    }),
   ],
   controllers: [],
   providers: [],
